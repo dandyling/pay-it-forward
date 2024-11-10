@@ -13,9 +13,9 @@ function App() {
   const key = format(date, YYYY_MM_DD);
   const isToday = format(date, YYYY_MM_DD) === format(dateToday, YYYY_MM_DD);
   return (
-    <main className="min-h-dvh min-w-screen flex flex-col gap-8 items-center">
+    <main className="flex flex-col gap-8 items-center py-8 overflow-y-auto">
       <h1 className="text-4xl font-bold">Pay it forward</h1>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 w-full px-4">
         <div className="flex items-center justify-between">
           <Button
             size="icon"
@@ -42,7 +42,7 @@ function App() {
         <span>
           {count > 3 ? count : 3} act of kindliness you have done for others
         </span>
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col gap-4 w-full px-4">
           {Array.from({ length: count }).map((_, index) => {
             const id = `${key}-p${index + 1}`;
             return <PayItForward id={id} key={id} />;
