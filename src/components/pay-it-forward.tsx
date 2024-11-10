@@ -1,6 +1,6 @@
-import debounce from "lodash/debounce";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Textarea } from "./ui/textarea";
+import { useLocalStorage } from "../assets/use-local-storage";
 
 export function PayItForward({
   id,
@@ -10,19 +10,7 @@ export function PayItForward({
   className?: string;
 }) {
   const [value, setValue] = useState("");
-
-  useEffect(() => {
-    const savedValue = localStorage.getItem(id);
-    if (savedValue) {
-      setValue(savedValue);
-    } else {
-      setValue("");
-    }
-  }, [id]);
-
-  const debouncedSave = debounce((value: string) => {
-    localStorage.setItem(id, value);
-  }, 1000);
+  const { setLocalStorage } = useLocalStorage(id, setValue);
 
   return (
     <Textarea
@@ -31,7 +19,7 @@ export function PayItForward({
       onChange={(e) => {
         const currentValue = e.target.value;
         setValue(currentValue);
-        debouncedSave(currentValue);
+        setLocalStorage(currentValue);
       }}
     />
   );
