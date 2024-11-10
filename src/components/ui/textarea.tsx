@@ -17,7 +17,9 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     };
 
     useEffect(() => {
-      adjustHeight();
+      // This will make it run after the event loop
+      const timer = setTimeout(adjustHeight, 0);
+      return () => clearTimeout(timer);
     }, []);
 
     return (
