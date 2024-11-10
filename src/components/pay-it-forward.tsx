@@ -2,7 +2,13 @@ import debounce from "lodash/debounce";
 import { useEffect, useState } from "react";
 import { Textarea } from "./ui/textarea";
 
-export function PayItForward({ id }: { id: string }) {
+export function PayItForward({
+  id,
+  className,
+}: {
+  id: string;
+  className?: string;
+}) {
   const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -18,6 +24,7 @@ export function PayItForward({ id }: { id: string }) {
 
   return (
     <Textarea
+      className={className}
       value={value}
       onChange={(e) => {
         const currentValue = e.target.value;
