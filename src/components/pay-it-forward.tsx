@@ -15,6 +15,8 @@ export function PayItForward({
     const savedValue = localStorage.getItem(id);
     if (savedValue) {
       setValue(savedValue);
+    } else {
+      setValue("");
     }
   }, [id]);
 
