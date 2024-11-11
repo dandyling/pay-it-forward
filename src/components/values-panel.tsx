@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { ValuePanel } from "./value-panel";
+import { Textarea } from "./ui/textarea";
 
 export const YYYY_MM_DD = "yyyy-MM-dd";
 
@@ -18,8 +18,17 @@ export function ValuesPanel({ date }: { date: Date }) {
     setValues(defaultValues);
   }, [id]);
 
-  const save = (values: string[]) => {
-    localStorage.setItem(id, JSON.stringify(values));
+  const change = (index: number, value: string) => {
+    const newValues = [...values];
+    newValues[index] = value;
+    setValues(newValues);
+  };
+
+  const save = () => {
+    const filteredValues = values.filter(
+      (value, index) => index < 3 || value.trim() !== ""
+    );
+    localStorage.setItem(id, JSON.stringify(filteredValues));
   };
 
   return (
@@ -28,23 +37,13 @@ export function ValuesPanel({ date }: { date: Date }) {
       <div className="flex flex-col gap-4 w-full px-4">
         {values.map((value, index) => {
           return (
-            <ValuePanel
+            <Textarea
               key={index}
               value={value}
-              onSave={() => {
-                save(values);
+              onChange={(e) => {
+                change(index, e.target.value);
               }}
-              onChange={(value) => {
-                const newValues = [...values];
-                newValues[index] = value;
-                setValues(newValues);
-              }}
-              onDelete={() => {
-                const newValues = [...values];
-                newValues.splice(index, 1);
-                setValues(newValues);
-                save(newValues);
-              }}
+              onBlur={save}
             />
           );
         })}
@@ -53,10 +52,7 @@ export function ValuesPanel({ date }: { date: Date }) {
         className="rounded-full w-12 h-12 p-0"
         size="icon"
         onClick={() => {
-          const newValues = [...values];
-          newValues.push("");
-          setValues(newValues);
-          save(newValues);
+          change(values.length, "");
         }}
       >
         <Plus />
