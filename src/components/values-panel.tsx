@@ -16,6 +16,10 @@ export function ValuesPanel({ date }: { date: Date }) {
     setValues(defaultValues);
   }, [key]);
 
+  const save = (values: string[]) => {
+    localStorage.setItem(key, JSON.stringify(values));
+  };
+
   return (
     <div className="flex flex-col gap-8 items-center">
       <span>{values.length} act of kindliness you have done for others</span>
@@ -24,11 +28,21 @@ export function ValuesPanel({ date }: { date: Date }) {
           return (
             <ValuePanel
               key={index}
-              values={values}
-              index={index}
-              setValues={setValues}
               value={value}
-              date={date}
+              onSave={() => {
+                save(values);
+              }}
+              onChange={(value) => {
+                const newValues = [...values];
+                newValues[index] = value;
+                setValues(newValues);
+              }}
+              onDelete={() => {
+                const newValues = [...values];
+                newValues.splice(index, 1);
+                setValues(newValues);
+                save(newValues);
+              }}
             />
           );
         })}
@@ -40,6 +54,7 @@ export function ValuesPanel({ date }: { date: Date }) {
           const newValues = [...values];
           newValues.push("");
           setValues(newValues);
+          save(newValues);
         }}
       >
         <Plus />
