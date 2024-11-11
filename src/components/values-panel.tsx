@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
+import { ValuePanel } from "./value-panel";
 
 export const YYYY_MM_DD = "yyyy-MM-dd";
 
@@ -22,20 +22,13 @@ export function ValuesPanel({ date }: { date: Date }) {
       <div className="flex flex-col gap-4 w-full px-4">
         {values.map((value, index) => {
           return (
-            <Textarea
+            <ValuePanel
               key={index}
+              values={values}
+              index={index}
+              setValues={setValues}
               value={value}
-              onChange={(e) => {
-                const newValues = [...values];
-                newValues[index] = e.target.value;
-                setValues(newValues);
-              }}
-              onBlur={() => {
-                localStorage.setItem(
-                  `${format(date, YYYY_MM_DD)}-values`,
-                  JSON.stringify(values)
-                );
-              }}
+              date={date}
             />
           );
         })}
