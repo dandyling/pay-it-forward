@@ -1,4 +1,3 @@
-import { add } from "date-fns";
 import { useState } from "react";
 import "./App.css";
 import { DatePanel } from "./components/date-panel";
@@ -14,8 +13,11 @@ function App() {
         <DatePanel
           date={date}
           dateToday={dateToday}
-          onPrevious={() => setDate(add(date, { days: -1 }))}
-          onNext={() => setDate(add(date, { days: 1 }))}
+          setDate={(date) => {
+            if (date) {
+              setDate(date);
+            }
+          }}
         />
         <ValuesPanel date={date} />
       </div>
