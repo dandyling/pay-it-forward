@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { YYYY_MM_DD } from "../App";
+import { YYYY_MM_DD } from "./values-panel";
 import { Button } from "./ui/button";
 import { format } from "date-fns";
 
