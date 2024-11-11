@@ -49,13 +49,13 @@ export function ValuesPanel({ date }: { date: Date }) {
         })}
       </div>
       <Button
-        className="rounded-full w-12 h-12 p-0"
+        className="rounded-full w-16 h-16 p-0"
         size="icon"
         onClick={() => {
           change(values.length, "");
         }}
       >
-        <Plus />
+        <Plus style={{ width: 24, height: 24 }} />
       </Button>
     </div>
   );

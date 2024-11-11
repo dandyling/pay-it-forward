@@ -17,7 +17,7 @@ export function DatePanel({
 }) {
   const isToday = format(date, YYYY_MM_DD) === format(dateToday, YYYY_MM_DD);
   return (
-    <div className="flex items-center gap-4 w-full">
+    <div className="flex items-center gap-2 w-full">
       <Button
         size="icon"
         className="rounded-lg"
