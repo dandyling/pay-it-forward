@@ -6,18 +6,20 @@ import { ValuePanel } from "./value-panel";
 
 export const YYYY_MM_DD = "yyyy-MM-dd";
 
+const getStorageId = (date: Date) => `${format(date, YYYY_MM_DD)}-values`;
+
 export function ValuesPanel({ date }: { date: Date }) {
-  const key = `${format(date, YYYY_MM_DD)}-values`;
+  const id = getStorageId(date);
   const [values, setValues] = useState<string[]>([]);
 
   useEffect(() => {
-    const savedValues = localStorage.getItem(key);
+    const savedValues = localStorage.getItem(id);
     const defaultValues = savedValues ? JSON.parse(savedValues) : ["", "", ""];
     setValues(defaultValues);
-  }, [key]);
+  }, [id]);
 
   const save = (values: string[]) => {
-    localStorage.setItem(key, JSON.stringify(values));
+    localStorage.setItem(id, JSON.stringify(values));
   };
 
   return (
