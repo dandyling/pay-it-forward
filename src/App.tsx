@@ -7,7 +7,7 @@ function App() {
   const dateToday = new Date();
   const [date, setDate] = useState(dateToday);
   return (
-    <main className="flex flex-col gap-8 items-center py-8 overflow-y-auto">
+    <main className="flex flex-col gap-8 items-center py-8 overflow-y-auto w-full max-w-2xl">
       <h1 className="text-4xl font-bold">Pay it forward</h1>
       <div className="flex flex-col gap-8 w-full px-4">
         <DatePanel
